@@ -14,7 +14,7 @@ plugins {
 
 apply plugin: 'com.android.library'
 
-version = 'v5.1.0'
+version = 'v0.0.3'
 
 android {
     namespace 'com.example.Data_Logger'
@@ -87,7 +87,7 @@ afterEvaluate {
             release(MavenPublication) {
                 groupId = 'com.example.Data_Logger'
                 artifactId = 'Data_Logger'
-                version = 'v5.1.0'
+                version = 'v0.0.3'
 
                 // Include the AAR artifact
                 artifact("$buildDir/outputs/aar/${project.name}-release.aar")
