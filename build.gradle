@@ -6,7 +6,8 @@ plugins {
 }
 
 group 'org.example'
-version '1.0-SNAPSHOT'
+version 'v0.0.5'
+namespace 'dev.weaponboy.data_logger'
 
 repositories {
     mavenCentral()
