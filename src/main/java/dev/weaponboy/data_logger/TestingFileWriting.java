@@ -1,4 +1,4 @@
-package org.example;
+package dev.weaponboy.data_logger;
 
 import java.io.FileWriter;
 import java.io.IOException;
