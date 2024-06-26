@@ -23,18 +23,24 @@ test {
 
 publishing {
     publications {
+        groupId = 'com.github.Weaponboy'
+        artifactId = 'data_logger'
+        version = 'v0.0.7'
+
         myLib(MavenPublication) {
             from components.java
         }
     }
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Weaponboy/Data_Logger")
-            credentials {
-                username = System.getenv("GITHUB_USERNAME")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
+
+//    repositories {
+//        maven {
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/Weaponboy/Data_Logger")
+//            credentials {
+//                username = System.getenv("GITHUB_USERNAME")
+//                password = System.getenv("GITHUB_TOKEN")
+//            }
+//        }
+//    }
+
 }
