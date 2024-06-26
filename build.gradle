@@ -1,12 +1,9 @@
-
 plugins {
     id 'java'
-//    id 'java-library'
     id 'maven-publish'
 }
 
 group 'dev.weaponboy.data_logger'
-//namespace 'dev.weaponboy.data_logger'
 
 repositories {
     mavenCentral()
@@ -25,19 +22,9 @@ publishing {
     publications {
         myLib(MavenPublication) {
             from components.java
+            groupId = 'dev.weaponboy.data_logger'
+            artifactId = 'data_logger'
+            version = '1.0.0'
         }
-
     }
-
-//    repositories {
-//        maven {
-//            name = "GitHubPackages"
-//            url = uri("https://maven.pkg.github.com/Weaponboy/Data_Logger")
-//            credentials {
-//                username = System.getenv("GITHUB_USERNAME")
-//                password = System.getenv("GITHUB_TOKEN")
-//            }
-//        }
-//    }
-
 }
