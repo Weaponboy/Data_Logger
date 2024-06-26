@@ -5,9 +5,8 @@ plugins {
     id 'maven-publish'
 }
 
-group 'org.example'
+group 'dev.weaponboy.data_logger'
 version 'v0.0.5'
-namespace 'dev.weaponboy.data_logger'
 
 repositories {
     mavenCentral()
