@@ -1,40 +1,131 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:8.0.0"
+    }
+}
 
 plugins {
-    id 'java'
-//    id 'java-library'
     id 'maven-publish'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+apply plugin: 'com.android.library'
+
+version = 'v5.1.0'
+
+android {
+    namespace 'com.example.Data_Logger'
+
+    compileSdkVersion 33
+
+    lintOptions {
+        disable 'ExpiredTargetSdkVersion'
+    }
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 28
+        versionCode 1
+        versionName 'v0.0.0'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+    }
+}
 
 repositories {
     mavenCentral()
+    google()
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testImplementation 'org.jetbrains:annotations:24.0.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    testImplementation 'org.tomlj:tomlj:1.1.0'
+
+    compileOnly 'org.firstinspires.ftc:RobotCore:9.0.0'
+    compileOnly 'org.firstinspires.ftc:RobotServer:9.0.0'
+    compileOnly 'org.firstinspires.ftc:Hardware:9.0.0'
+    compileOnly 'org.firstinspires.ftc:FtcCommon:9.0.0'
+    compileOnly 'org.firstinspires.ftc:Vision:9.0.0'
+    compileOnly 'androidx.appcompat:appcompat:1.6.1'
+
+    implementation 'org.tomlj:tomlj:1.1.0'
 }
 
-test {
-    useJUnitPlatform()
-}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.example.Data_Logger'
+                artifactId = 'Data_Logger'
+                version = 'v5.1.0'
 
-publishing {
-    publications {
-        myLib(MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Weaponboy/Data_Logger")
-            credentials {
-                username = System.getenv("GITHUB_USERNAME")
-                password = System.getenv("GITHUB_TOKEN")
+                // Include the AAR artifact
+                artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+
+                pom {
+                    name = 'Data_Logger'
+                    description = 'Description of your library'
+                    url = 'http://www.example.com'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'Weaponboy'
+                            name = 'Josh Anderson'
+                            email = 'weaponboy@example.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/Weaponboy/Data_Logger.git'
+                        developerConnection = 'scm:git:ssh://github.com:Weaponboy/Data_Logger.git'
+                        url = 'http://github.com/Weaponboy/Data_Logger/'
+                    }
+                }
             }
         }
+        repositories {
+            maven {
+                name = 'Data_Logger'
+                url = "${project.buildDir}/release"
+            }
+        }
+    }
+
+    tasks.named("publishReleasePublicationToMavenLocal") {
+        dependsOn tasks.named("assembleRelease")
     }
 }
