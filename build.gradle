@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'dev.weaponboy.data_logger'
-namespace 'dev.weaponboy.data_logger'
+//namespace 'dev.weaponboy.data_logger'
 
 repositories {
     mavenCentral()
