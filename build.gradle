@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'dev.weaponboy.data_logger'
-version 'v0.0.5'
+namespace 'dev.weaponboy.data_logger'
 
 repositories {
     mavenCentral()
@@ -23,13 +23,10 @@ test {
 
 publishing {
     publications {
-        groupId = 'com.github.Weaponboy'
-        artifactId = 'data_logger'
-        version = 'v0.0.7'
-
         myLib(MavenPublication) {
             from components.java
         }
+
     }
 
 //    repositories {
